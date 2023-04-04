@@ -2,19 +2,30 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const compression = require('compression');
+const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-app.use(cors())
 
-const dotenv = require('dotenv');
-dotenv.config();
 
-const dbHost = process.env.DB_HOST;
-const dbUser = process.env.DB_USER;
-const dbPass = process.env.DB_PASSWORD;
-const apiPort = process.env.DB_PORT;
-const apiName = process.env.DB_NAME;
+app.use(cookieParser());
+app.use(compression());
+app.use(cors());
+const corsOptions = {
+  origin: [process.env.APP_URL], // lista de domínios permitidos
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // lista de métodos HTTP permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // lista de headers permitidos
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+
+
+
+
 
 const bebidasRouter = require('./src/routes/bebidasRouter');
 const clientesRouter = require('./src/routes/clientesRouter');
@@ -22,6 +33,8 @@ const lanchesRouter = require('./src/routes/lanchesRouter');
 const pedidosRouter = require('./src/routes/pedidosRouter');
 const pizzasRouter = require('./src/routes/pizzasRouter');
 const porcoesRouter = require('./src/routes/porcoesRouter');
+const authRouter = require('./src/routes/authRouter');
+
 
 app.use('/bebidas', bebidasRouter)
 app.use('/clientes', clientesRouter)
@@ -29,6 +42,7 @@ app.use('/lanches', lanchesRouter)
 app.use('/pedidos', pedidosRouter)
 app.use('/pizzas', pizzasRouter)
 app.use('/porcoes', porcoesRouter)
+app.use('/auth', authRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -46,7 +60,7 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-app.listen('3550', () => console.log("Servidor rodando na porta 3550"))
+app.listen(process.env.API_PORT, () => console.log(`Servidor rodando na porta ${process.env.API_PORT}`))
 
 
 module.exports = app;

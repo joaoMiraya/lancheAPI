@@ -1,7 +1,7 @@
-const { sequelize, DataTypes } = require('sequelize')
+const { sequelize, DataTypes } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    const Lanche = sequelize.define(
-        "Lanche", {
+    const Acrescimo = sequelize.define(
+        "Acrescimo", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -12,26 +12,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        ingredientes: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         preco: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        categoria: {
-            type: DataTypes.INTEGER,
             allowNull: false
         },
 
     },
         {
-            tablename: "lanche",
+            tablename: "acrescimo",
             timestamps: false
         }
     )
 
 
-    return Lanche
+    return Acrescimo
 }

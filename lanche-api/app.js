@@ -23,10 +23,7 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 
-
-
-
-
+const acrescimoRouter = require('./src/routes/acrescimoRouter');
 const bebidasRouter = require('./src/routes/bebidasRouter');
 const clientesRouter = require('./src/routes/clientesRouter');
 const lanchesRouter = require('./src/routes/lanchesRouter');
@@ -36,13 +33,15 @@ const porcoesRouter = require('./src/routes/porcoesRouter');
 const authRouter = require('./src/routes/authRouter');
 
 
-app.use('/bebidas', bebidasRouter)
-app.use('/clientes', clientesRouter)
-app.use('/lanches', lanchesRouter)
-app.use('/pedidos', pedidosRouter)
-app.use('/pizzas', pizzasRouter)
-app.use('/porcoes', porcoesRouter)
-app.use('/auth', authRouter)
+
+app.use('/acrescimos', acrescimoRouter);
+app.use('/bebidas', bebidasRouter);
+app.use('/clientes', clientesRouter);
+app.use('/lanches', lanchesRouter);
+app.use('/pedidos', pedidosRouter);
+app.use('/pizzas', pizzasRouter);
+app.use('/porcoes', porcoesRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

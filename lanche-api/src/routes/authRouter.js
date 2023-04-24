@@ -32,12 +32,14 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ id: user.id }, JWT_SECRET);
         const userSession = {
             id: user.id,
+            token: token,
             nome: user.nome,
             sobrenome: user.sobrenome,
             bairro: user.bairro,
             rua: user.rua,
             numero_casa: user.numero_casa,
-            telefone: user.telefone
+            telefone: user.telefone,
+            data_cadastro: user.data_cadastro
         }
         // Retorne o token JWT e as informações para o cliente
         res.json({ token, userSession});

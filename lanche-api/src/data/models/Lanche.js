@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             allowNull: false
         },
+        imagem: {
+            type: DataTypes.BLOB('long'),
+            allowNull: false
+        },
         nome: {
             type: DataTypes.STRING,
             allowNull: false
